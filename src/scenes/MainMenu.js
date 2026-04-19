@@ -1,4 +1,4 @@
-import * as globals from '../globals.js';
+import * as globals from '@src/globals.js';
 
 export class MainMenu extends Phaser.Scene {
 
