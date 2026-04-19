@@ -1,6 +1,8 @@
 import { Initialize } from "./scenes/Initialize.js";
 import { MainMenu } from "./scenes/MainMenu.js";
 
+'use strict';
+
 const urlQueryParams = new URLSearchParams(window.location.search);
 
 const config = {
@@ -15,6 +17,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
+    backgroundColor: '#FACADE',
 
     useTicker: true,
     physics: {
@@ -23,7 +26,7 @@ const config = {
     scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu ]
 };
 
-const game = new Phaser.Game(config);
+export const game = new Phaser.Game(config);
 
 // Allow all scenes to be accessible via browser console
 game.events.once('ready', () => Object.assign(window, game.scene.keys));
