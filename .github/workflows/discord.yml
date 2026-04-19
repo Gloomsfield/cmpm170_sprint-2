@@ -13,8 +13,8 @@ jobs:
         id: commits
         run: |
           COMMIT_LIST=$(echo '${{ toJson(github.event.commits) }}' | \
-            jq -r '[.[] | "• `\(.id[:7])` \(.message | split("\n")[0]) — \(.author.name)"] | join("\\n")')
-          echo "list=$COMMIT_LIST" >> $GITHUB_OUTPUT
+            jq -r '[.[] | "- `\(.id[:7])` - \(.author.name): \(.message | split("\n")[0])"] | join("\\n")')
+          echo -e "list=$COMMIT_LIST" >> $GITHUB_OUTPUT
 
       - name: Post to Discord
         uses: Ilshidur/action-discord@0.4.0
