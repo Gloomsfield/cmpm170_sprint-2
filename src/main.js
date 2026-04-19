@@ -1,3 +1,6 @@
+import { Initialize } from "./scenes/Initialize.js";
+import { MainMenu } from "./scenes/MainMenu.js";
+
 const urlQueryParams = new URLSearchParams(window.location.search);
 
 const config = {
@@ -17,9 +20,13 @@ const config = {
     physics: {
         default: 'arcade'
     },
-    scene: [ ]
+    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu ]
 };
 
 const game = new Phaser.Game(config);
 
+// Allow all scenes to be accessible via browser console
 game.events.once('ready', () => Object.assign(window, game.scene.keys));
+
+// Add the phaser game object to window as well, so that it can be accessed despite js moding for modules instead of globals
+window.game = game;
