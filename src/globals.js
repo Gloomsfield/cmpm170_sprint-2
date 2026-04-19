@@ -13,6 +13,21 @@ export const menuTextStyle = {
     align: 'center'
 };
 
+export const tilemapSettings = {
+	layers: {
+		floor: {
+			name: 'floor'
+		},
+		staticCollision: {
+			name: 'walls'
+		},
+		spawns: {
+			name: 'spawns',
+			babySpawn: 'babySpawn'
+		},
+	}
+};
+
 export function canvasX(fractX) {
     return game.config.width * (fractX ?? 1.0);
 }
@@ -28,3 +43,4 @@ export function canvasPos(fractX, fractY) {
 
     return [canvasX(fractX), canvasY(fractY)]
 }
+
