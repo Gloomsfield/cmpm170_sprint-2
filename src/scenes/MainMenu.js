@@ -14,10 +14,10 @@ export class MainMenu extends Phaser.Scene {
 
     createTitle() {
         const titleStyle = {
-            
+            ...globals.menuTextStyle
         };
 
-        this.titleText = this.add.text(...globals.canvasPos(0.5, 0.45), "Baby's First Dungeon Crawler", globals.menuTextStyle)
+        this.titleText = this.add.text(...globals.canvasPos(0.5, 0.45), "Baby's First Dungeon Crawler", titleStyle)
         this.titleText.setOrigin(0.5);
     }
 
@@ -31,7 +31,7 @@ export class MainMenu extends Phaser.Scene {
     }
 
     startCredits() {
-        console.log('TODO switch to credits screen');
+        this.scene.start('creditsScene');
     }
 
 }

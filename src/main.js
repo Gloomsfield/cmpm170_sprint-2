@@ -1,5 +1,6 @@
 import { Initialize } from "./scenes/Initialize.js";
 import { MainMenu } from "./scenes/MainMenu.js";
+import { Credits } from "./scenes/Credits.js";
 
 'use strict';
 
@@ -23,7 +24,7 @@ const config = {
     physics: {
         default: 'arcade'
     },
-    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu ]
+    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits ]
 };
 
 export const game = new Phaser.Game(config);
