@@ -3,8 +3,8 @@ import { State } from "@lib/StateMachine.js";
 
 export class Baby extends Character {
 
-    constructor(scene, x, y, texture, frame) {
-        super(scene, x, y, texture, frame);
+    constructor(scene, x, y) {
+        super(scene, x, y, 'baby_texture', 0);
     }
 
     initializeStates() {
