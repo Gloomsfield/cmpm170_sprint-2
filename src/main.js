@@ -2,6 +2,8 @@ import { Initialize } from "./scenes/Initialize.js";
 import { MainMenu } from "./scenes/MainMenu.js";
 import { Credits } from "./scenes/Credits.js";
 
+import { DungeonLevel } from './scenes/DungeonLevel.js'
+
 import { registerCharacters } from './gameObjects/CharacterRegistration.js'
 
 'use strict';
@@ -26,7 +28,7 @@ const config = {
     physics: {
         default: 'arcade'
     },
-    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits ]
+    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, DungeonLevel ]
 };
 
 // i'm not convinced this is the best way to handle mapping character names to constructors.
