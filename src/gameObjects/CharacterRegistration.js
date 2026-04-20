@@ -7,6 +7,7 @@ import { Dog } from './enemies/Dog.js';
 import { Doll } from './enemies/Doll.js';
 import { Fish } from './enemies/Fish.js';
 import { Moth } from './enemies/Moth.js';
+import { Puppet } from './enemies/Puppet.js';
 
 export function registerCharacters() {
 	registerCharacterName('baby', Baby);
@@ -16,4 +17,5 @@ export function registerCharacters() {
 	registerCharacterName('doll', Doll);
 	registerCharacterName('fish', Fish);
 	registerCharacterName('moth', Moth);
+	registerCharacterName('puppet', Puppet);
 }
