@@ -53,6 +53,6 @@ export function spawnCharacter(name, scene, x, y, texture, frame, data) {
 	let characterConstructor = characterConstructorMap.get(name);
 	if(!characterConstructor) { return false; }
 
-	characterConstructor.call(scene, x, y, texture, frame, data);
+	return new characterConstructor(scene, x, y);
 }
 
