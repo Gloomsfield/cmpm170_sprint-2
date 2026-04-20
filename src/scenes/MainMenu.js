@@ -27,7 +27,7 @@ export class MainMenu extends Phaser.Scene {
     }
 
     startPlay() {
-        console.log('TODO switch to dungeon tutorial floor');
+        this.scene.start('dungeonLevelScene');
     }
 
     startCredits() {

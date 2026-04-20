@@ -2,6 +2,8 @@ import { Initialize } from "./scenes/Initialize.js";
 import { MainMenu } from "./scenes/MainMenu.js";
 import { Credits } from "./scenes/Credits.js";
 
+import { DungeonLevel } from './scenes/DungeonLevel.js'
+
 'use strict';
 
 const urlQueryParams = new URLSearchParams(window.location.search);
@@ -9,11 +11,10 @@ const urlQueryParams = new URLSearchParams(window.location.search);
 const config = {
     type: Phaser.WEBGL,
     parent: 'phasergame',
-    canvasStyle: 'display: block;', // Set to block, as otherwise it will have a 6-pixel gap underneath
     pixelArt: true,
 
-    width: 800,
-    height: 600,
+    width: 400,
+    height: 300,
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -24,7 +25,7 @@ const config = {
     physics: {
         default: 'arcade'
     },
-    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits ]
+    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, DungeonLevel ]
 };
 
 export const game = new Phaser.Game(config);
