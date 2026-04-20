@@ -4,8 +4,6 @@ import { Credits } from "./scenes/Credits.js";
 
 import { DungeonLevel } from './scenes/DungeonLevel.js'
 
-import { registerCharacters } from './gameObjects/CharacterRegistration.js'
-
 'use strict';
 
 const urlQueryParams = new URLSearchParams(window.location.search);
@@ -30,11 +28,6 @@ const config = {
     },
     scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, DungeonLevel ]
 };
-
-// i'm not convinced this is the best way to handle mapping character names to constructors.
-// TODO find a more elegant way to associate character names as they appear in the tilemap
-//		to character constructors as we've defined them in this project
-registerCharacters();
 
 export const game = new Phaser.Game(config);
 

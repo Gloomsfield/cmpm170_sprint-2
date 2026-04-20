@@ -1,4 +1,4 @@
-import { Character } from "@src/gameObjects/Character.js";
+import { Character } from "./Character.js";
 
 export class Enemy extends Character {
 

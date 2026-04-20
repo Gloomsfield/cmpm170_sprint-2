@@ -43,16 +43,3 @@ export function canvasPos(fractX, fractY) {
     return [canvasX(fractX), canvasY(fractY)]
 }
 
-const characterConstructorMap = new Map();
-
-export function registerCharacterName(name, constructor) {
-	characterConstructorMap.set(name, constructor);
-}
-
-export function spawnCharacter(name, scene, x, y, texture, frame, data) {
-	let characterConstructor = characterConstructorMap.get(name);
-	if(!characterConstructor) { return false; }
-
-	return new characterConstructor(scene, x, y);
-}
-

@@ -1,5 +1,3 @@
-import { spawnCharacter } from '@src/globals.js';
-
 export class DungeonLevel extends Phaser.Scene {
 	constructor() {
 		super('dungeonLevelScene');
@@ -30,8 +28,18 @@ export class DungeonLevel extends Phaser.Scene {
 	}
 
 	trySpawn(spawnData) {
-		let spawned = spawnCharacter(spawnData.name, this, spawnData.x, spawnData.y);
-		if(!spawned) { console.error(`failed to spawn ${spawnData.name}!`); }
+		const formattedName = spawnData.name[0].toUpperCase() + spawnData.name.slice(1);
+
+		// solution described by https://stackoverflow.com/a/67880017
+		// shoutout eric for finding the SO post lol
+		import(`@src/gameObjects/characters/${formattedName}.js`)
+			.then(({ default: spawnConstructor }) => {
+				let spawned = new spawnConstructor(this, spawnData.x, spawnData.y);
+				if(!spawned) { console.error(`failed to spawn ${formattedName}!!`); }
+			}
+		).catch((error) => {
+			console.error(error + `\n\n(${formattedName}.js probably doesn't exist!!)`);
+		});
 	}
 }
 
