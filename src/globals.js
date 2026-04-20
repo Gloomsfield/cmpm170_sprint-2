@@ -23,7 +23,6 @@ export const tilemapSettings = {
 		},
 		spawns: {
 			name: 'spawns',
-			babySpawn: 'babySpawn'
 		},
 	}
 };
@@ -42,5 +41,18 @@ export function canvasPos(fractX, fractY) {
     }
 
     return [canvasX(fractX), canvasY(fractY)]
+}
+
+const characterConstructorMap = new Map();
+
+export function registerCharacterName(name, constructor) {
+	characterConstructorMap.set(name, constructor);
+}
+
+export function spawnCharacter(name, scene, x, y, texture, frame, data) {
+	let characterConstructor = characterConstructorMap.get(name);
+	if(!characterConstructor) { return false; }
+
+	characterConstructor.call(scene, x, y, texture, frame, data);
 }
 
