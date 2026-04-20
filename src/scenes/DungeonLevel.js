@@ -1,14 +1,21 @@
+// http://127.0.0.1:5500/?mode=dungeonLevelScene
+// https://gloomsfield.github.io/cmpm170_sprint-2/?mode=dungeonLevelScene
+
 export class DungeonLevel extends Phaser.Scene {
 	constructor() {
 		super('dungeonLevelScene');
 	}
 
 	create(tilemapInfo) {
-		this.tilemapKey = 'tutorial_tilemap';
-		this.tilesetKey = 'dungeon_tileset';
+		tilemapInfo = {
+			tilemapKey: 'tutorial_tilemap',
+			tilesetKey: 'dungeon_tileset',
+			// If same key name is bound, above default value will be overwritten through below spread operator
+			...tilemapInfo,
+		};
 
-		if(tilemapInfo && tilemapInfo.tilemapKey) { this.tilemapKey = tilemapInfo.tilemapKey; }
-		if(tilemapInfo && tilemapInfo.tilesetKey) { this.tilesetKey = tilemapInfo.tilesetKey; }
+		this.tilemapKey = tilemapInfo.tilemapKey;
+		this.tilesetKey = tilemapInfo.tilesetKey;
 
 		const map = this.add.tilemap(this.tilemapKey);
 		const tileset = map.addTilesetImage('toadzilla_dungeon', this.tilesetKey);
