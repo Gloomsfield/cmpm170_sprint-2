@@ -11,11 +11,10 @@ const urlQueryParams = new URLSearchParams(window.location.search);
 const config = {
     type: Phaser.WEBGL,
     parent: 'phasergame',
-    canvasStyle: 'display: block;', // Set to block, as otherwise it will have a 6-pixel gap underneath
     pixelArt: true,
 
-    width: 800,
-    height: 600,
+    width: 400,
+    height: 300,
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
