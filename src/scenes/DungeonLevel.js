@@ -43,12 +43,21 @@ export class DungeonLevel extends Phaser.Scene {
 		// shoutout eric for finding the SO post lol
 		const modulePath = `@src/gameObjects/characters/${formattedName}.js`;
 		import(modulePath)
-			.then(({ default: spawnConstructor }) => {
-				const spawned = new spawnConstructor(this, spawnData.x, spawnData.y, spawnData.properties);
+			.then(({ default: defaultModule }) => {
+				const spawned = this.dispatchModule(defaultModule, spawnData);
 				if(!spawned) { console.error(`failed to spawn ${formattedName}!!`); }
 			}).catch(error => {
 				console.error(`Failed to initialize character class imported from '${modulePath}':\n\n${error}`);
 			});
+	}
+
+	dispatchModule(defaultModule, spawnData) {
+		// Check if the imported class contains a function called "staticInitialize" that is not inherited from a parent
+		if (typeof defaultModule.staticInitialize === 'function' && Object.hasOwn(defaultModule, 'staticInitialize')) {
+			return defaultModule.staticInitialize(this, spawnData.x, spawnData.y, spawnData.properties);
+		}
+
+		return new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
 	}
 }
 
