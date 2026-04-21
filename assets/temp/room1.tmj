@@ -79,6 +79,7 @@
                  "height":0,
                  "id":8,
                  "name":"sawbladePivot",
+                 "opacity":1,
                  "point":true,
                  "properties":[
                         {
@@ -97,6 +98,7 @@
                  "height":0,
                  "id":11,
                  "name":"sawblade",
+                 "opacity":1,
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -112,49 +114,16 @@
          "y":0
         }, 
         {
-         "color":"#55aaff",
-         "draworder":"index",
-         "id":5,
-         "name":"triggers",
-         "objects":[
-                {
-                 "height":16,
-                 "id":1,
-                 "name":"room1-exit",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":96,
-                 "y":0
-                }, 
-                {
-                 "height":16,
-                 "id":2,
-                 "name":"room1-entrance",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":0,
-                 "y":64
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
          "color":"#aa55ff",
          "draworder":"index",
          "id":6,
-         "name":"spawns",
+         "name":"characters",
          "objects":[
                 {
                  "height":0,
                  "id":3,
                  "name":"baby",
+                 "opacity":1,
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -162,30 +131,6 @@
                  "width":0,
                  "x":24,
                  "y":72
-                }, 
-                {
-                 "height":0,
-                 "id":5,
-                 "name":"enemy",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":120,
-                 "y":24
-                }, 
-                {
-                 "height":0,
-                 "id":14,
-                 "name":"candy",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":72,
-                 "y":120
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -197,7 +142,7 @@
  "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.11.2",
+ "tiledversion":"1.12.1",
  "tileheight":16,
  "tilesets":[
         {

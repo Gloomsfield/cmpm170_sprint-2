@@ -31,21 +31,26 @@ export class DungeonLevel extends Phaser.Scene {
 	}
 
 	spawnObjects(tilemap) {
-		for (const spawnData of deserializeObjectLayer(tilemap, 'spawns')) {
-			this.trySpawn(spawnData);
+		for(let layerName of tilemap.getObjectLayerNames()) {
+			this.spawnObjectsOnLayer(tilemap, layerName);
 		}
 	}
 
-	trySpawn(spawnData) {
+	spawnObjectsOnLayer(tilemap, layerName) {
+		for (const spawnData of deserializeObjectLayer(tilemap, layerName)) {
+			this.spawnObject(layerName, spawnData);
+		}
+	}
+
+	spawnObject(classDirectory, spawnData) {
 		const formattedName = spawnData.name[0].toUpperCase() + spawnData.name.slice(1);
 
 		// solution described by https://stackoverflow.com/a/67880017
 		// shoutout eric for finding the SO post lol
-		const modulePath = `@src/gameObjects/characters/${formattedName}.js`;
+		const modulePath = `@src/gameObjects/${classDirectory}/${formattedName}.js`;
 		import(modulePath)
 			.then(({ default: defaultModule }) => {
 				const spawned = this.dispatchModule(defaultModule, spawnData);
-				if(!spawned) { console.error(`failed to spawn ${formattedName}!!`); }
 			}).catch(error => {
 				console.error(`Failed to initialize character class imported from '${modulePath}':\n\n${error}`);
 			});
