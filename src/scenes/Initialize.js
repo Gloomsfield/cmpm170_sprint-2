@@ -17,9 +17,11 @@ export class Initialize extends Phaser.Scene {
 		this.load.image('moth_texture', 'dummy.png');
 		this.load.image('puppet_texture', 'dummy.png');
 
+		this.load.image('sawblade_texture', 'sawblade.png');
+
 		this.load.image('dungeon_tileset', 'tileset_toadzilla_dungeon.png');
 
-		this.load.tilemapTiledJSON('tutorial_tilemap', 'tutorial.json');
+		this.load.tilemapTiledJSON('tutorial_tilemap', 'room1.json');
 
 		this.load.path = './assets/tilemaps/';
     }
