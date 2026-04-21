@@ -1,3 +1,5 @@
+import { deserializeObjectLayer } from '@src/tiledImport.js';
+
 // http://127.0.0.1:5500/?mode=dungeonLevelScene
 // https://gloomsfield.github.io/cmpm170_sprint-2/?mode=dungeonLevelScene
 
@@ -18,6 +20,7 @@ export class DungeonLevel extends Phaser.Scene {
 		this.tilesetKey = tilemapInfo.tilesetKey;
 
 		const map = this.add.tilemap(this.tilemapKey);
+		this.map = map;
 		const tileset = map.addTilesetImage('toadzilla_dungeon', this.tilesetKey);
 
 		const backgroundLayer = map.createLayer('background', tileset, 0.0, 0.0);
@@ -28,8 +31,7 @@ export class DungeonLevel extends Phaser.Scene {
 	}
 
 	spawnObjects(tilemap) {
-		for(let obj of tilemap.getObjectLayer('spawns').objects) {
-			let spawnData = { name: obj.name, x: obj.x, y: obj.y };
+		for (const spawnData of deserializeObjectLayer(tilemap, 'spawns')) {
 			this.trySpawn(spawnData);
 		}
 	}
@@ -42,7 +44,7 @@ export class DungeonLevel extends Phaser.Scene {
 		const modulePath = `@src/gameObjects/characters/${formattedName}.js`;
 		import(modulePath)
 			.then(({ default: spawnConstructor }) => {
-				let spawned = new spawnConstructor(this, spawnData.x, spawnData.y);
+				const spawned = new spawnConstructor(this, spawnData.x, spawnData.y, spawnData.properties);
 				if(!spawned) { console.error(`failed to spawn ${formattedName}!!`); }
 			}).catch(error => {
 				console.error(`Failed to initialize character class imported from '${modulePath}':\n\n${error}`);
