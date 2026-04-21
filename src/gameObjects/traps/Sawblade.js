@@ -8,6 +8,13 @@ export default class Sawblade extends Trap {
 		super(scene, x, y, 'sawblade_texture', 0);
 
 		this.setScale(0.25);
+
+		this.setInteractive();
+		scene.input.setDraggable(this);
+
+		this.on('drag', (pointer, x, y) => {
+			this.setPosition(x, y);
+		});
 	}
 
 }

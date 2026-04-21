@@ -18,10 +18,32 @@ export default class SawbladePivot extends Trap {
 			properties.sawblade.properties
 		);
 
-		console.log('meow');
+		this.radius = new Phaser.Math.Vector2(
+			this.sawblade.x,
+			this.sawblade.y
+		).distance(new Phaser.Math.Vector2(this.x, this.y));
 
 		this.scene = scene;
 	}
+
+	preUpdate(time, delta) {
+		super.preUpdate(time, delta);
+
+		let oldSawbladePosition = new Phaser.Math.Vector2(
+			this.sawblade.x,
+			this.sawblade.y
+		);
+
+		let thisPosition = new Phaser.Math.Vector2(
+			this.x,
+			this.y
+		);
+
+		let direction = new Phaser.Math.Vector2(oldSawbladePosition).subtract(thisPosition).normalize();
+		let newSawbladePosition = new Phaser.Math.Vector2(direction).scale(this.radius).add(thisPosition);
+
+		this.sawblade.setPosition(newSawbladePosition.x, newSawbladePosition.y);
+	}	
 
 }
 
