@@ -23,12 +23,12 @@ export default class SawbladePivot extends Trap {
 			this.sawblade.y
 		).distance(new Phaser.Math.Vector2(this.x, this.y));
 
+		scene.events.on('update', this.update, this);
+
 		this.scene = scene;
 	}
 
-	preUpdate(time, delta) {
-		super.preUpdate(time, delta);
-
+	clampSawblade() {
 		let oldSawbladePosition = new Phaser.Math.Vector2(
 			this.sawblade.x,
 			this.sawblade.y
@@ -43,7 +43,12 @@ export default class SawbladePivot extends Trap {
 		let newSawbladePosition = new Phaser.Math.Vector2(direction).scale(this.radius).add(thisPosition);
 
 		this.sawblade.setPosition(newSawbladePosition.x, newSawbladePosition.y);
-	}	
+	}
+
+	update(time, delta) {
+		this.sawblade.update();
+		this.clampSawblade();
+	}
 
 }
 

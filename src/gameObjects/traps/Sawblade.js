@@ -12,9 +12,17 @@ export default class Sawblade extends Trap {
 		this.setInteractive();
 		scene.input.setDraggable(this);
 
+		this.draggedPosition = new Phaser.Math.Vector2(this.x, this.y);
+
 		this.on('drag', (pointer, x, y) => {
-			this.setPosition(x, y);
+			this.draggedPosition.x = x;
+			this.draggedPosition.y = y;
 		});
+	}
+
+	update() {
+		this.x = this.draggedPosition.x;
+		this.y = this.draggedPosition.y;
 	}
 
 }
