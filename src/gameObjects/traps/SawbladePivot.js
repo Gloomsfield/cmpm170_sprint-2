@@ -18,6 +18,9 @@ export default class SawbladePivot extends Trap {
 			properties.sawblade.properties
 		);
 
+		this.startingAngle = Math.atan2(this.sawblade.y - this.y, this.sawblade.x - this.x);
+		this.maxAngle = properties.maxAngle * Math.PI / 180.0;
+
 		this.radius = new Phaser.Math.Vector2(
 			this.sawblade.x,
 			this.sawblade.y
@@ -29,18 +32,21 @@ export default class SawbladePivot extends Trap {
 	}
 
 	clampSawblade() {
-		let oldSawbladePosition = new Phaser.Math.Vector2(
-			this.sawblade.x,
-			this.sawblade.y
+		let unclampedSawbladeAngle = Math.atan2(
+			this.sawblade.x - this.x,
+			-this.sawblade.y + this.y
+		) - Math.PI / 2.0;
+
+		let clampedSawbladeAngle = Math.min(
+			this.startingAngle + this.maxAngle, Math.max(
+				this.startingAngle - this.maxAngle, unclampedSawbladeAngle
+			)
 		);
 
-		let thisPosition = new Phaser.Math.Vector2(
-			this.x,
-			this.y
-		);
-
-		let direction = new Phaser.Math.Vector2(oldSawbladePosition).subtract(thisPosition).normalize();
-		let newSawbladePosition = new Phaser.Math.Vector2(direction).scale(this.radius).add(thisPosition);
+		let newSawbladePosition = new Phaser.Math.Vector2(
+			Math.cos(clampedSawbladeAngle),
+			Math.sin(clampedSawbladeAngle)
+		).scale(this.radius).add(new Phaser.Math.Vector2(this.x, this.y));
 
 		this.sawblade.setPosition(newSawbladePosition.x, newSawbladePosition.y);
 	}
