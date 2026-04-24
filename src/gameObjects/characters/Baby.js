@@ -3,8 +3,8 @@ import { State } from "@lib/StateMachine.js";
 
 export default class Baby extends Character {
 
-    constructor(scene, x, y) {
-        super(scene, x, y, 'baby_spritesheet', 0);
+    constructor(scene, x, y, properties) {
+        super(scene, x, y, 'baby_spritesheet', 0, properties);
 
 		this.scene.anims.create({
 			key: 'baby_walk-forward_anim',
