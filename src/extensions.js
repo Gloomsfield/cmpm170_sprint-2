@@ -26,3 +26,19 @@ Phaser.Scene.prototype.createButton = function createButton(text, posX, posY, st
 
     return buttonTextObj;
 };
+
+// Thank you Nathan https://github.com/nathanaltice/Mappy/blob/7714624b30aa1a21b257e6f1508d1b5b8b140ba5/src/Scenes/TiledPlatform.js#L40-L46
+Phaser.Scene.prototype.addLayerDebugGraphics = function addLayerDebugGraphics(tiledLayer, tileStyleConfig) {
+    // define a render debug so we can see the tilemap's collision bounds
+    const debugGraphics = this.add.graphics().setAlpha(0.75);
+    tiledLayer.renderDebug(debugGraphics, {
+        // color of non-colliding tiles
+        tileColor: null,
+        // color of colliding tiles
+        collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+        // color of colliding face edges
+        faceColor: new Phaser.Display.Color(40, 39, 37, 255),
+        // See Phaser.Types.Tilemaps.StyleConfig
+        ...tileStyleConfig
+    });
+};
