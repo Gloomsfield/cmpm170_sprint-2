@@ -1,6 +1,8 @@
-import { Initialize } from "./scenes/Initialize.js";
-import { MainMenu } from "./scenes/MainMenu.js";
-import { Credits } from "./scenes/Credits.js";
+import EasyStar from '@lib/easystar.js';
+
+import { Initialize } from './scenes/Initialize.js';
+import { MainMenu } from './scenes/MainMenu.js';
+import { Credits } from './scenes/Credits.js';
 
 import { DungeonLevel } from './scenes/DungeonLevel.js'
 
@@ -29,6 +31,7 @@ const config = {
 };
 
 export const game = new Phaser.Game(config);
+export const finder = new EasyStar.js();
 
 // Allow all scenes to be accessible via browser console
 game.events.once('ready', () => Object.assign(window, game.scene.keys));
