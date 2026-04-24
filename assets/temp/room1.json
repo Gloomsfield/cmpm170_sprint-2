@@ -75,6 +75,11 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"maxAngle",
+                         "type":"float",
+                         "value":30
+                        }, 
+                        {
                          "name":"sawblade",
                          "type":"object",
                          "value":11
