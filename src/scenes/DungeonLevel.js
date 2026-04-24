@@ -30,6 +30,9 @@ export class DungeonLevel extends Phaser.Scene {
 		pitLayer.setCollisionByProperty({ collides: true });
 		wallLayer.setCollisionByProperty({ collides: true });
 
+		// this.addLayerDebugGraphics(wallLayer);
+		// this.addLayerDebugGraphics(pitLayer, { collidingTileColor: new Phaser.Display.Color(128, 0, 0, 255) });
+
 		this.spawnObjects(map, { pitLayer: pitLayer, wallLayer: wallLayer });
 	}
 
