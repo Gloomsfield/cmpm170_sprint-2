@@ -15,14 +15,19 @@ export default class Sawblade extends Trap {
 		this.draggedPosition = new Phaser.Math.Vector2(this.x, this.y);
 
 		this.on('drag', (pointer, x, y) => {
-			this.draggedPosition.x = x;
-			this.draggedPosition.y = y;
-		});
-	}
+			let position = new Phaser.Math.Vector2(this.x, this.y);
+			let pointerPosition = new Phaser.Math.Vector2(x, y);
 
-	update() {
-		this.x = this.draggedPosition.x;
-		this.y = this.draggedPosition.y;
+			// TODO factor out constant 10.0
+			if(position.distance(pointerPosition) > 10.0) {
+				this.emit('dragend', pointer, this, false);
+
+				return;
+			}
+
+			this.x = x;
+			this.y = y;
+		});
 	}
 
 }
