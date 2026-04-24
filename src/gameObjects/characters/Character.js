@@ -23,6 +23,10 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 		this.scene = scene;
 
         this.addTileCollision(properties.collidableTileLayers);
+
+		scene.events.on('update', this.update, this);
+
+		this.scene = scene;
     }
 
 	update(time, delta) {
