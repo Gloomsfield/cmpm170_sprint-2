@@ -17,7 +17,15 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         }
         const fsmPersistParameters = [scene, this];
         this.fsm = new StateMachine('idle', states, fsmPersistParameters);
+
+		scene.events.on('update', this.update, this);
+
+		this.scene = scene;
     }
+
+	update(time, delta) {
+		this.fsm.step();
+	}
 
     /**
      * Called by the constructor to initialize states for this given character.
