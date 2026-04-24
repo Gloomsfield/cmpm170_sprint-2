@@ -1,3 +1,5 @@
+import { finder } from '@src/main.js';
+
 'use strict';
 
 const buttonDefaults = {
@@ -41,4 +43,44 @@ Phaser.Scene.prototype.addLayerDebugGraphics = function addLayerDebugGraphics(ti
         // See Phaser.Types.Tilemaps.StyleConfig
         ...tileStyleConfig
     });
+};
+
+function flattenTileLayerColumn(x, y, collidableTileLayerArray) {
+    for (const layer of collidableTileLayerArray) {
+        const tile = layer.getTileAt(x, y);
+        if (tile && tile.index > 0) {
+            return tile.index;
+        }
+    }
+
+    return 0;
+}
+
+Phaser.Scene.prototype.initializeFinder = function initializeFinder(map, tileset, collidableTileLayerArray) {
+    // Adapted from https://www.dynetisgames.com/2018/03/06/pathfinding-easystar-phaser-3/
+    var grid = [];
+    for (var y = 0; y < map.height; y++) {
+        var col = [];
+        for (var x = 0; x < map.width; x++) {
+            // In each cell we store the ID of the tile, which corresponds
+            // to its index in the tileset of the map ("ID" field in Tiled)
+            col.push(flattenTileLayerColumn(x, y, collidableTileLayerArray));
+        }
+        grid.push(col);
+    }
+
+    finder.setGrid(grid);
+
+    // Setup finder rules
+    const acceptableTiles = [];
+
+    for (let index = tileset.firstgid; index <= tileset.total; index++) {
+        const tile = tileset.getTileProperties(index);
+        // console.log(index, tile);
+        if (!tile.collides) {
+            acceptableTiles.push(index);
+        }
+    }
+    // console.log(acceptableTiles);
+    finder.setAcceptableTiles(acceptableTiles);
 };

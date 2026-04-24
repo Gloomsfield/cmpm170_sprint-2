@@ -56,7 +56,11 @@ export class DungeonLevel extends Phaser.Scene {
     	});	
 
 
-		this.spawnObjects(map, { pitLayer: pitLayer, wallLayer: wallLayer });
+		const collidableTileLayers = { pitLayer: pitLayer, wallLayer: wallLayer };
+
+		this.spawnObjects(map, collidableTileLayers);
+
+		this.initializeFinder(map, tileset, Object.values(collidableTileLayers));
 	}
 
 	spawnObjects(tilemap, collidableTileLayers) {
