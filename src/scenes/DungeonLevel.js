@@ -27,22 +27,28 @@ export class DungeonLevel extends Phaser.Scene {
 		const pitLayer = map.createLayer('pits', tileset, 0.0, 0.0);
 		const wallLayer = map.createLayer('walls', tileset, 0.0, 0.0);
 
-		this.spawnObjects(map);
+		pitLayer.setCollisionByProperty({ collides: true });
+		wallLayer.setCollisionByProperty({ collides: true });
+
+		// this.addLayerDebugGraphics(wallLayer);
+		// this.addLayerDebugGraphics(pitLayer, { collidingTileColor: new Phaser.Display.Color(128, 0, 0, 255) });
+
+		this.spawnObjects(map, { pitLayer: pitLayer, wallLayer: wallLayer });
 	}
 
-	spawnObjects(tilemap) {
-		for(let layerName of tilemap.getObjectLayerNames()) {
-			this.spawnObjectsOnLayer(tilemap, layerName);
+	spawnObjects(tilemap, collidableTileLayers) {
+		for(const layerName of tilemap.getObjectLayerNames()) {
+			this.spawnObjectsOnLayer(tilemap, layerName, collidableTileLayers);
 		}
 	}
 
-	spawnObjectsOnLayer(tilemap, layerName) {
+	spawnObjectsOnLayer(tilemap, layerName, collidableTileLayers) {
 		for (const spawnData of deserializeObjectLayer(tilemap, layerName)) {
-			this.spawnObject(layerName, spawnData);
+			this.spawnObject(layerName, spawnData, collidableTileLayers);
 		}
 	}
 
-	spawnObject(classDirectory, spawnData) {
+	spawnObject(classDirectory, spawnData, collidableTileLayers) {
 		const formattedName = spawnData.name[0].toUpperCase() + spawnData.name.slice(1);
 
 		// solution described by https://stackoverflow.com/a/67880017
@@ -50,6 +56,7 @@ export class DungeonLevel extends Phaser.Scene {
 		const modulePath = `@src/gameObjects/${classDirectory}/${formattedName}.js`;
 		import(modulePath)
 			.then(({ default: defaultModule }) => {
+				spawnData.properties.collidableTileLayers = collidableTileLayers;
 				const spawned = this.dispatchModule(defaultModule, spawnData);
 			}).catch(error => {
 				console.error(`Failed to initialize character class imported from '${modulePath}':\n\n${error}`);
