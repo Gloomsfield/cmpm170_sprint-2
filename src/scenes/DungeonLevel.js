@@ -13,7 +13,7 @@ export class DungeonLevel extends Phaser.Scene {
 
 	create(tilemapInfo) {
 		tilemapInfo = {
-			tilemapKey: 'tutorial_tilemap',
+			tilemapKey: 'debug_tilemap',
 			tilesetKey: 'dungeon_tileset',
 			// If same key name is bound, above default value will be overwritten through below spread operator
 			...tilemapInfo,
