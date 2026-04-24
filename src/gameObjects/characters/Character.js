@@ -2,7 +2,7 @@ import { StateMachine } from '@lib/StateMachine.js';
 
 export class Character extends Phaser.Physics.Arcade.Sprite {
 
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y, texture, frame, properties) {
         super(scene, x, y, texture, frame); // call Sprite parent class
         scene.add.existing(this);           // add npc to existing scene
         scene.physics.add.existing(this);   // add physics body to scene
@@ -17,6 +17,8 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         }
         const fsmPersistParameters = [scene, this];
         this.fsm = new StateMachine('idle', states, fsmPersistParameters);
+
+        this.addTileCollision(properties.collidableTileLayers);
     }
 
     /**
@@ -25,6 +27,12 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
      */
     initializeStates() {
         return {};
+    }
+
+    addTileCollision(collidableTileLayers) {
+        for (const layer of Object.values(collidableTileLayers)) {
+            this.scene.physics.add.collider(this, layer);
+        }
     }
 
 }
