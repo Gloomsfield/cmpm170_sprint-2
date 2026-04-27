@@ -72,7 +72,7 @@ Phaser.Scene.prototype.initializeFinder = function initializeFinder(map, tileset
     finder.setGrid(grid);
 
     // Setup finder rules
-    const acceptableTiles = [];
+    const acceptableTiles = [ 0 ]; // 0 is "null" tile
 
     for (let index = tileset.firstgid; index <= tileset.total; index++) {
         const tile = tileset.getTileProperties(index);

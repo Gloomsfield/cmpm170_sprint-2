@@ -27,6 +27,8 @@ export class DungeonLevel extends Phaser.Scene {
 		const pitLayer = map.createLayer('pits', tileset, 0.0, 0.0);
 		const wallLayer = map.createLayer('walls', tileset, 0.0, 0.0);
 
+		this.pathfinderLayer = wallLayer;
+
 		pitLayer.setCollisionByProperty({ collides: true });
 		wallLayer.setCollisionByProperty({ collides: true });
 
@@ -75,5 +77,9 @@ export class DungeonLevel extends Phaser.Scene {
 
 		return new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
 	}
+
+	getPathfindTilePos(objX, objY, snapToGrid = true) {
+        return this.pathfinderLayer.worldToTileXY(objX, objY, snapToGrid, null, this.cameras.main);
+    }
 }
 
