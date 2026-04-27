@@ -25,13 +25,15 @@ const config = {
 
     useTicker: true,
     physics: {
-        default: 'arcade'
+        default: 'arcade',
+        // arcade: { debug: true }
     },
     scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, DungeonLevel ]
 };
 
 export const game = new Phaser.Game(config);
 export const finder = new EasyStar.js();
+finder.enableDiagonals();
 
 // Allow all scenes to be accessible via browser console
 game.events.once('ready', () => Object.assign(window, game.scene.keys));

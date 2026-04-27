@@ -39,3 +39,7 @@ export function deserializeTiledObjects(tiledmap) {
 
     return objRet;
 }
+
+export function offsetPolylinePath(path) {
+    return path.polyline.map(({ x: xDelta, y: yDelta }) => ({ x: path.x + xDelta, y: path.y + yDelta }));
+}
