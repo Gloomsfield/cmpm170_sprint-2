@@ -23,6 +23,8 @@ export class Initialize extends Phaser.Scene {
 
 		this.load.tilemapTiledJSON('tutorial_tilemap', 'room1.json');
 
+		this.load.audio('dog_bark_sound', 'dog_bark_sound.mp3');
+
 		this.load.path = './assets/tilemaps/';
     }
 
