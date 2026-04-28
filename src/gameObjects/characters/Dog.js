@@ -6,8 +6,6 @@ export default class Dog extends Enemy {
     constructor(scene, x, y, properties) {
         super(scene, x, y, 'dog_texture', 0, properties);
 
-		console.log(this.fsm);
-
 		this.fsm.transition('bark');
     }
 
@@ -44,8 +42,6 @@ class DogBarkState extends State {
 		dogObject.bark();
 	}
 
-	execute(scene, dogObject) {
-		
-	}
+	execute(scene, dogObject) { }
 }
 
