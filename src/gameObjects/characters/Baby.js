@@ -12,6 +12,16 @@ export default class Baby extends Character {
         this.pathGoals.shift(); // Remove first element since the baby spawns on it
 
         this.moveToNextGoal(); // TODO Add timer delay before this is called
+
+        if (this.scene.baby) {
+            console.error('There is already an instance of baby in the scene');
+        } else {
+            console.log('setting baby in level');
+            this.scene.baby = this;
+            // SHOULD be called from DungeonLevel.create, but because this class is
+            // loaded async the scene creating this baby will crash with null baby
+		    this.scene.positionView();
+        }
     }
 
     initializeStates() {
