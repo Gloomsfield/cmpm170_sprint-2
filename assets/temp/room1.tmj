@@ -79,7 +79,6 @@
                  "height":0,
                  "id":8,
                  "name":"sawbladePivot",
-                 "opacity":1,
                  "point":true,
                  "properties":[
                         {
@@ -103,7 +102,6 @@
                  "height":0,
                  "id":11,
                  "name":"sawblade",
-                 "opacity":1,
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -111,6 +109,53 @@
                  "width":0,
                  "x":72,
                  "y":104
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"poi",
+         "objects":[
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"BabyRoute",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":48,
+                         "y":0
+                        }, 
+                        {
+                         "x":48,
+                         "y":48
+                        }, 
+                        {
+                         "x":48,
+                         "y":0
+                        }, 
+                        {
+                         "x":80,
+                         "y":0
+                        }, 
+                        {
+                         "x":80,
+                         "y":-64
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":24,
+                 "y":72
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -128,8 +173,13 @@
                  "height":0,
                  "id":3,
                  "name":"baby",
-                 "opacity":1,
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":17
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -143,11 +193,11 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":10,
- "nextobjectid":15,
+ "nextlayerid":11,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.12.1",
+ "tiledversion":"1.11.2",
  "tileheight":16,
  "tilesets":[
         {
