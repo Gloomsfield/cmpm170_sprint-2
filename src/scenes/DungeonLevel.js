@@ -1,4 +1,4 @@
-import { canvasPos } from '@src/globals.js';
+import { canvasX, canvasY, canvasPos } from '@src/globals.js';
 import { deserializeObjectLayer } from '@src/tiledImport.js';
 
 // http://127.0.0.1:5500/?mode=dungeonLevelScene
@@ -63,7 +63,7 @@ export class DungeonLevel extends Phaser.Scene {
 
 		this.spawnObjects(map, collidableTileLayers);
 
-		this.positionView();
+		this.centerView();
 
 		this.initializeFinder(map, tileset, Object.values(collidableTileLayers));
 	}
@@ -109,6 +109,15 @@ export class DungeonLevel extends Phaser.Scene {
     }
 
 	positionView() {
+		if (this.map.widthInPixels > canvasX() || this.map.heightInPixels > canvasY()) {
+			console.log('setting cam view')
+			this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+			this.cameras.main.startFollow(this.baby, true, 0.25, 0.25);
+			this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+		}
+	}
+	
+	centerView() {
 		const [ screenHalfWidth, screenHalfHeight ] = canvasPos(0.5);
 		const [ mapHalfWidth, mapHalfHeight ] = [ this.map.widthInPixels * 0.5, this.map.heightInPixels * 0.5 ];
 
