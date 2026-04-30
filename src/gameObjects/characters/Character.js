@@ -140,6 +140,7 @@ class CharacterMovingState extends State {
 		);
 
 		if(distanceToNode < 1) {
+			characterObject.body.reset(characterObject.targetPos.x, characterObject.targetPos.y);
 			characterObject.shiftPathingNode();
 		}
 	}
