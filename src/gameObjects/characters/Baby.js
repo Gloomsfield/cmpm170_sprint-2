@@ -1,5 +1,5 @@
 import { Character } from "./Character.js";
-import { State } from "@lib/StateMachine.js";
+import { State, StateMachine } from "@lib/StateMachine.js";
 import { offsetPolylinePath } from "@src/tiledImport.js"
 
 export default class Baby extends Character {
@@ -12,6 +12,11 @@ export default class Baby extends Character {
         this.pathGoals.shift(); // Remove first element since the baby spawns on it
 
         this.moveToNextGoal(); // TODO Add timer delay before this is called
+
+		const idleStates = this.initializeIdleSubStates();
+		const idleFsmPersistParameters = [scene, this];
+
+		this.idleFsm = new StateMachine('seeking', idleStates, idleFsmPersistParameters);
 
         if (this.scene.baby) {
             console.error('There is already an instance of baby in the scene');
@@ -29,13 +34,34 @@ export default class Baby extends Character {
         };
     }
 
+	initializeIdleSubStates() {
+		return {
+			seeking: new BabyIdleState.SeekingState(),
+			scared: new BabyIdleState.ScaredState(),
+		};
+	}
+
 }
 
 class BabyIdleState extends State {
 
-    enter(scene, babyObject) {}
+	static SeekingState = class extends State {
+		enter(scene, babyObject) { console.log('entering seeking sub-state'); }
+		execute(scene, babyObject) {}
+	};
 
-    execute(scene, babyObject) {}
+	static ScaredState = class extends State {
+		enter(scene, babyObject) { console.log('entering scared sub-state'); }
+		execute(scene, babyObject) {}
+	};
+
+    enter(scene, babyObject) {
+		babyObject.idleFsm.transition('seeking');
+	}
+
+    execute(scene, babyObject) {
+		babyObject.idleFsm.step();
+	}
 
 }
 
