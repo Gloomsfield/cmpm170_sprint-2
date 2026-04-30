@@ -56,8 +56,9 @@ export class DungeonLevel extends Phaser.Scene {
 
 		this.mainTheme.once('complete', () => {
         	this.mainTheme.play('loop', { loop: true });
-    	});	
+    	});
 
+		this.effectGroups = new Map();
 
 		const collidableTileLayers = { pitLayer: pitLayer, wallLayer: wallLayer };
 
@@ -101,7 +102,19 @@ export class DungeonLevel extends Phaser.Scene {
 			return defaultModule.staticInitialize(this, spawnData.x, spawnData.y, spawnData.properties);
 		}
 
-		return new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
+		const spawnedObject = new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
+
+		if(!spawnData.properties.affectedBy) { return spawnedObject; }
+
+		for(const effectName of spawnData.properties.affectedBy) {
+			this.effectGroups.getOrInsert(effectName.value, new Phaser.GameObjects.Group(this)).add(spawnedObject);
+		}
+
+		return spawnedObject;
+	}
+
+	getAffectedGroup(effectName) {
+		return this.effectGroups.get(effectName);
 	}
 
 	getPathfindTilePos(objX, objY, snapToGrid = true) {
