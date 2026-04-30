@@ -1,4 +1,4 @@
-import { StateMachine } from '@lib/StateMachine.js';
+import { State, StateMachine } from '@lib/StateMachine.js';
 
 import { finder } from '@src/main.js';
 
@@ -11,7 +11,6 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
         this.controlVelocity = 50; // in pixels
         this.targetPos = new Phaser.Math.Vector2(x, y);
-        this.moveToTarget = false;
         this.pathNodes = [];
         this.pathGoals = [];
         this.debug = false;
@@ -21,9 +20,17 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         this.body.setFriction(1.0);
 
         const states = this.initializeStates();
-        if (states['idle'] == null) {
+
+        if(states['idle'] == null) {
             console.warn(`Missing 'idle' default state in class ${this.constructor.name}.`);
         }
+
+		if(states['moving']) {
+			console.warn(`'moving' state will be overridden in ${this.constructor.name} by Character base class.`);
+		}
+
+		states['moving'] = new CharacterMovingState();
+
         const fsmPersistParameters = [scene, this];
         this.fsm = new StateMachine('idle', states, fsmPersistParameters);
 
@@ -65,19 +72,17 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
             console.error('Pathfinder could not route.');
             return;
         }
-        if (this.debug) console.log('startPathing', path);
+        if (this.debug) console.log('startPathing', JSON.stringify(path));
         this.pathGoals.shift(); // Consume goal, now moving towards it
         path.shift(); // remove first node, on the tile already or else it may slightly backtrack
         this.pathNodes = path;
 
         this.shiftPathingNode();
-
-        this.fsm.transition('moving');
     }
 
     // The character has reached its destination, poll next node
     shiftPathingNode() {
-        if (this.debug) console.log('shiftPathingNode pre', this.pathNodes);
+        if (this.debug) console.log('shiftPathingNode pre', JSON.stringify(this.pathNodes));
 
         const noNodes = this.pathNodes.length == 0;
 
@@ -94,31 +99,28 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         this.setTargetPos(worldPos);
 
         // TODO this.anims.play('moving', true);
-        this.moveToTarget = true;
     }
 
     clearPathing() {
         // TODO this.anims.play('idle', true);
         this.pathNodes = [];
-        this.moveToTarget = false;
+
+		this.fsm.transition('idle');
     }
 
     setTargetPos(pos) {
-        if (this.debug) console.log("setTargetPos", pos);
+        if (this.debug) console.log("setTargetPos", JSON.stringify(pos));
 
         this.targetPos = pos;
         this.scene.physics.moveToObject(this, pos, this.controlVelocity);
+
+		if(this.fsm.state != 'moving') {
+			this.fsm.transition('moving');
+		}
     }
 
     update() {
         this.fsm.step();
-
-        const distanceToNode = Phaser.Math.Distance.BetweenPoints(this, this.targetPos);
-        if (this.moveToTarget && distanceToNode < 1) {
-            this.body.reset(this.targetPos.x, this.targetPos.y);
-            this.shiftPathingNode();
-            return;
-        }
     }
 
     getTilePos(snapToGrid = true) {
@@ -126,3 +128,21 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     }
 
 }
+
+class CharacterMovingState extends State {
+
+	enter(scene, characterObject) {}
+
+	execute(scene, characterObject) {
+		const distanceToNode = Phaser.Math.Distance.BetweenPoints(
+			characterObject,
+			characterObject.targetPos
+		);
+
+		if(distanceToNode < 1) {
+			characterObject.shiftPathingNode();
+		}
+	}
+
+}
+
