@@ -34,24 +34,16 @@ export default class Baby extends Character {
 
 class BabyIdleState extends State {
 
-    enter(scene, babyObject) {
+    enter(scene, babyObject) {}
 
-    }
-
-    execute(scene, babyObject) {
-
-    }
+    execute(scene, babyObject) {}
 
 }
 
-class BabyMovingState extends State {
-
-    enter(scene, babyObject) {
-
-    }
-
-    execute(scene, babyObject) {
-
-    }
+class BabyScaredState extends State {
+	
+	enter(scene, babyObject) {}
+	execute(scene, babyObject) {}
 
 }
+
