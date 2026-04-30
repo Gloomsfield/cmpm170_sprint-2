@@ -26,7 +26,6 @@ export default class Baby extends Character {
     initializeStates() {
         return {
             idle: new BabyIdleState(),
-            moving: new BabyMovingState()
         };
     }
 
