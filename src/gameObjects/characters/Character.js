@@ -1,4 +1,4 @@
-import { State, StateMachine } from '@lib/StateMachine.js';
+import { State, StateStack, StateMachine } from '@lib/StateMachine.js';
 
 import { finder } from '@src/main.js';
 
@@ -33,6 +33,8 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
         const fsmPersistParameters = [scene, this];
         this.fsm = new StateMachine('idle', states, fsmPersistParameters);
+
+		this.stateStack = new StateStack(this.fsm);
 
         this.addTileCollision(properties.collidableTileLayers);
 
@@ -113,10 +115,6 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
         this.targetPos = pos;
         this.scene.physics.moveToObject(this, pos, this.controlVelocity);
-
-		if(this.fsm.state != 'moving') {
-			this.fsm.transition('moving');
-		}
     }
 
     update() {
@@ -147,6 +145,10 @@ class CharacterMovingState extends State {
 			characterObject.body.reset(characterObject.targetPos.x, characterObject.targetPos.y);
 			characterObject.shiftPathingNode();
 		}
+	}
+
+	exit(scene, characterObject) {
+		characterObject.body.reset(characterObject.x, characterObject.y);
 	}
 
 }

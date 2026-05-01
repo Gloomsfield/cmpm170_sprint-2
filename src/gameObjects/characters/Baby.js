@@ -34,11 +34,18 @@ export default class Baby extends Character {
             // loaded async the scene creating this baby will crash with null baby
 		    this.scene.positionView();
         }
+
+		this.stateStack.push('idle');
+		this.stateStack.push('moving');
+		this.stateStack.push('afraid', 999);
+
+		console.log(this.stateStack);
     }
 
     initializeStates() {
         return {
             idle: new BabyIdleState(),
+			afraid: new BabyFearState(),
         };
     }
 
@@ -61,6 +68,22 @@ class BabyIdleState extends State {
 
     enter(scene, babyObject) {}
     execute(scene, babyObject) {}
+	exit() {}
 
+}
+
+class BabyFearState extends State {
+
+	enter(scene, babyObject) {
+		scene.time.delayedCall(
+			100,
+			babyObject.stateStack.deleteState,
+			this,
+			this
+		);
+	}
+
+	execute() {}
+	exit() {}
 }
 
