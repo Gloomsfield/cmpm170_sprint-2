@@ -24,7 +24,7 @@ export class Credits extends Phaser.Scene {
     }
 
     createTitle() {
-        const textPos = globals.canvasPos(0.5, 0.35);
+        const textPos = globals.canvasPos(0.5, 0.25);
 
         const headerStyle = {
             ...globals.menuTextStyle

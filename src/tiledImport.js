@@ -5,14 +5,14 @@ export function deserializeObjectLayer(tiledmap, objectLayerName) {
         name: object.name,
         x: object.x,
         y: object.y,
-        properties: deserializeCustomProperties(objectLookup, object)
+        properties: deserializeCustomProperties(objectLookup, object.properties)
     }));
 }
 
-function deserializeCustomProperties(objectLookup, object) {
+export function deserializeCustomProperties(objectLookup, properties) {
     const deserializedProperties = {};
 
-    for (const customProperty of object.properties ?? []) {
+    for (const customProperty of properties ?? []) {
         deserializedProperties[customProperty.name] = deserializeCustomProperty(objectLookup, customProperty);
     }
 

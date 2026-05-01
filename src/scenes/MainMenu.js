@@ -17,7 +17,7 @@ export class MainMenu extends Phaser.Scene {
             ...globals.menuTextStyle
         };
 
-        this.titleText = this.add.text(...globals.canvasPos(0.5, 0.45), "Baby's First Dungeon Crawler", titleStyle)
+        this.titleText = this.add.text(...globals.canvasPos(0.5, 0.4), "Baby's First Dungeon Crawler", titleStyle)
         this.titleText.setOrigin(0.5);
     }
 
@@ -27,7 +27,7 @@ export class MainMenu extends Phaser.Scene {
     }
 
     startPlay() {
-        this.scene.start('dungeonLevelScene');
+        this.scene.start('introScene');
     }
 
     startCredits() {

@@ -4,7 +4,11 @@ import { Initialize } from './scenes/Initialize.js';
 import { MainMenu } from './scenes/MainMenu.js';
 import { Credits } from './scenes/Credits.js';
 
+import { IntroCutscene } from './scenes/IntroCutscene.js'
 import { DungeonLevel } from './scenes/DungeonLevel.js'
+
+import { MusicScene } from './scenes/MusicScene.js'
+import { CursorOverlay } from './scenes/CursorOverlay.js'
 
 'use strict';
 
@@ -15,20 +19,20 @@ const config = {
     parent: 'phasergame',
     pixelArt: true,
 
-    width: 400,
-    height: 300,
+    width: 240,
+    height: 240,
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    backgroundColor: '#FACADE',
+    backgroundColor: '#1E1911',
 
     useTicker: true,
     physics: {
         default: 'arcade',
         // arcade: { debug: true }
     },
-    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, DungeonLevel ]
+    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, IntroCutscene, DungeonLevel, MusicScene, CursorOverlay ]
 };
 
 export const game = new Phaser.Game(config);

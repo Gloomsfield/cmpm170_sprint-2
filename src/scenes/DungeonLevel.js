@@ -1,3 +1,4 @@
+import { canvasX, canvasY, canvasPos } from '@src/globals.js';
 import { deserializeObjectLayer } from '@src/tiledImport.js';
 
 // http://127.0.0.1:5500/?mode=dungeonLevelScene
@@ -8,10 +9,12 @@ export class DungeonLevel extends Phaser.Scene {
 		super('dungeonLevelScene');
 	}
 	preload(){
-		this.load.audio('main_theme', './assets/temp/audio/main_theme.mp3');
+		//this.load.audio('main_theme', './assets/temp/audio/main_theme.mp3');	
 	}
 
 	create(tilemapInfo) {
+		delete this.baby;
+
 		tilemapInfo = {
 			tilemapKey: 'tutorial_tilemap',
 			tilesetKey: 'dungeon_tileset',
@@ -35,32 +38,17 @@ export class DungeonLevel extends Phaser.Scene {
 		pitLayer.setCollisionByProperty({ collides: true });
 		wallLayer.setCollisionByProperty({ collides: true });
 
+		
 		// this.addLayerDebugGraphics(wallLayer);
 		// this.addLayerDebugGraphics(pitLayer, { collidingTileColor: new Phaser.Display.Color(128, 0, 0, 255) });
-		
-		//sound
-		//Feel free to make prettier or better code idk
-		this.mainTheme = this.sound.add('main_theme');
-		this.mainTheme.addMarker({
-			name: 'first',
-			start: 0,
-			duration: 56
-		});
-		this.mainTheme.addMarker({
-			name: "loop",
-			start: 18,
-			duration: 38
-		});
-		this.mainTheme.play('first');
 
-		this.mainTheme.once('complete', () => {
-        	this.mainTheme.play('loop', { loop: true });
-    	});	
-
+		this.collisionGroups = new Map();
 
 		const collidableTileLayers = { pitLayer: pitLayer, wallLayer: wallLayer };
 
 		this.spawnObjects(map, collidableTileLayers);
+
+		this.centerView();
 
 		this.initializeFinder(map, tileset, Object.values(collidableTileLayers));
 	}
@@ -93,16 +81,46 @@ export class DungeonLevel extends Phaser.Scene {
 	}
 
 	dispatchModule(defaultModule, spawnData) {
+		let spawnedObject;
+
 		// Check if the imported class contains a function called "staticInitialize" that is not inherited from a parent
 		if (typeof defaultModule.staticInitialize === 'function' && Object.hasOwn(defaultModule, 'staticInitialize')) {
-			return defaultModule.staticInitialize(this, spawnData.x, spawnData.y, spawnData.properties);
+			spawnedObject = defaultModule.staticInitialize(this, spawnData.x, spawnData.y, spawnData.properties);
+		} else {
+			spawnedObject = new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
 		}
 
-		return new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
+		if(!spawnData.properties.collidesWith) { return spawnedObject; }
+
+		for(const collisionName of spawnData.properties.collidesWith) {
+			this.collisionGroups.getOrInsert(collisionName.value, new Phaser.GameObjects.Group(this)).add(spawnedObject);
+		}
+
+		return spawnedObject;
+	}
+
+	getCollisionGroup(collisionName) {
+		return this.collisionGroups.getOrInsert(collisionName, new Phaser.GameObjects.Group());
 	}
 
 	getPathfindTilePos(objX, objY, snapToGrid = true) {
         return this.pathfinderLayer.worldToTileXY(objX, objY, snapToGrid, null, this.cameras.main);
     }
+
+	positionView() {
+		if (this.map.widthInPixels > canvasX() || this.map.heightInPixels > canvasY()) {
+			console.log('setting cam view')
+			this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+			this.cameras.main.startFollow(this.baby, true, 0.25, 0.25);
+			this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+		}
+	}
+	
+	centerView() {
+		const [ screenHalfWidth, screenHalfHeight ] = canvasPos(0.5);
+		const [ mapHalfWidth, mapHalfHeight ] = [ this.map.widthInPixels * 0.5, this.map.heightInPixels * 0.5 ];
+
+		this.cameras.main.setScroll(mapHalfWidth - screenHalfWidth, mapHalfHeight - screenHalfHeight);
+	}
 }
 
