@@ -1,5 +1,6 @@
 import { State, StateStack, StateMachine } from '@lib/StateMachine.js';
 
+import { getFacingDirection } from '@src/globals.js';
 import { finder } from '@src/main.js';
 
 export class Character extends Phaser.Physics.Arcade.Sprite {
@@ -125,6 +126,10 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 	die() {
 		this.destroy();
 	}
+
+    setDirection(direction) {
+        this.direction = direction;
+    }
 
 }
 
