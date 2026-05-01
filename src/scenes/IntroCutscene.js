@@ -30,7 +30,7 @@ export class IntroCutscene extends Phaser.Scene {
             x: "-=200",
             y: "-=100",
             ease: 'sine.inout',
-            duration: 3000,
+            duration: 2000,
             onComplete: this.showBaby,
             callbackScope: this
         });
@@ -60,13 +60,15 @@ export class IntroCutscene extends Phaser.Scene {
     }
 
     puppetRetreats() {
-        this.tweens.add({
-            targets: this.puppet,
-            x: "+=32",
-            duration: 1000,
-            onComplete: this.intoDungeon,
-            callbackScope: this
-        });
+        this.time.delayedCall(1000, () => {
+            this.tweens.add({
+                targets: this.puppet,
+                x: "+=32",
+                duration: 1000,
+                onComplete: this.intoDungeon,
+                callbackScope: this
+            });
+        }, null, this);
 
         this.baby.play('baby-idle');
     }
@@ -83,7 +85,7 @@ export class IntroCutscene extends Phaser.Scene {
             targets: this.baby,
             x: "+=94",
             y: "+=7",
-            duration: 3000,
+            duration: 2000,
             onComplete: this.startDungeon,
             callbackScope: this
         });
