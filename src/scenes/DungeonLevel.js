@@ -9,7 +9,7 @@ export class DungeonLevel extends Phaser.Scene {
 		super('dungeonLevelScene');
 	}
 	preload(){
-		this.load.audio('main_theme', './assets/temp/audio/main_theme.mp3');
+		//this.load.audio('main_theme', './assets/temp/audio/main_theme.mp3');	
 	}
 
 	create(tilemapInfo) {
@@ -38,27 +38,9 @@ export class DungeonLevel extends Phaser.Scene {
 		pitLayer.setCollisionByProperty({ collides: true });
 		wallLayer.setCollisionByProperty({ collides: true });
 
+		
 		// this.addLayerDebugGraphics(wallLayer);
 		// this.addLayerDebugGraphics(pitLayer, { collidingTileColor: new Phaser.Display.Color(128, 0, 0, 255) });
-		
-		//sound
-		//Feel free to make prettier or better code idk
-		this.mainTheme = this.sound.add('main_theme');
-		this.mainTheme.addMarker({
-			name: 'first',
-			start: 0,
-			duration: 56
-		});
-		this.mainTheme.addMarker({
-			name: "loop",
-			start: 18,
-			duration: 38
-		});
-		this.mainTheme.play('first');
-
-		this.mainTheme.once('complete', () => {
-        	this.mainTheme.play('loop', { loop: true });
-    	});
 
 		this.effectGroups = new Map();
 

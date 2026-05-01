@@ -28,12 +28,14 @@ export class Initialize extends Phaser.Scene {
 		this.load.tilemapTiledJSON('room5', 'room5.json');
 
 		this.load.audio('dog_bark_sound', 'dog_bark_sound.mp3');
+		this.load.audio('main_theme', 'audio/main_theme.mp3');	
 
 		this.load.path = './assets/tilemaps/';
     }
 
     create() {
-        this.scene.start(this.queryMode);
+        this.scene.launch('MusicScene');
+		this.scene.start(this.queryMode);	
     }
 
 }
