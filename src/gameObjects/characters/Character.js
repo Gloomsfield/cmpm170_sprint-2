@@ -106,15 +106,12 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     clearPathing() {
         // TODO this.anims.play('idle', true);
         this.pathNodes = [];
-
-		this.fsm.transition('idle');
     }
 
     setTargetPos(pos) {
         if (this.debug) console.log("setTargetPos", JSON.stringify(pos));
 
         this.targetPos = pos;
-        this.scene.physics.moveToObject(this, pos, this.controlVelocity);
     }
 
     update() {
@@ -133,9 +130,19 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
 class CharacterMovingState extends State {
 
-	enter(scene, characterObject) {}
+	enter(scene, characterObject) {
+		characterObject.moveToNextGoal();
+	}
 
 	execute(scene, characterObject) {
+		const direction = new Phaser.Math.Vector2(characterObject.targetPos).subtract(new Phaser.Math.Vector2(characterObject.x, characterObject.y));
+
+		if(direction.lengthSq() > 0.05) { direction.normalize(); }
+
+		const velocity = new Phaser.Math.Vector2(direction).scale(characterObject.controlVelocity);
+
+		characterObject.setVelocity(velocity.x, velocity.y);
+
 		const distanceToNode = Phaser.Math.Distance.BetweenPoints(
 			characterObject,
 			characterObject.targetPos
@@ -148,7 +155,7 @@ class CharacterMovingState extends State {
 	}
 
 	exit(scene, characterObject) {
-		characterObject.body.reset(characterObject.x, characterObject.y);
+		characterObject.setVelocity(0.0);
 	}
 
 }

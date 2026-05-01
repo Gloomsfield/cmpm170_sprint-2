@@ -37,9 +37,8 @@ export default class Baby extends Character {
 
 		this.stateStack.push('idle');
 		this.stateStack.push('moving');
-		this.stateStack.push('afraid', 999);
 
-		console.log(this.stateStack);
+		scene.time.delayedCall(1000, () => this.stateStack.push('afraid', 999), null, this);
     }
 
     initializeStates() {
@@ -77,8 +76,8 @@ class BabyFearState extends State {
 	enter(scene, babyObject) {
 		scene.time.delayedCall(
 			100,
-			babyObject.stateStack.deleteState,
-			this,
+			() => babyObject.stateStack.delete('afraid'),
+			null,
 			this
 		);
 	}
