@@ -26,7 +26,7 @@ export default class ExitTrigger {
         scene.physics.world.once('overlap', (gameObject1, gameObject2, body1, body2) => {
             if (collisionFilter.has(gameObject1) && collisionFilter.has(gameObject2)) {
                 if (properties.next === 'win') {
-                    console.log('TODO: u winner deserve a win screen dude');
+                    scene.scene.start('winScene');
                 } else {
 					baby.fsm.transition('idle');
                     scene.scene.start('dungeonLevelScene', { tilemapKey: properties.next });
