@@ -1,4 +1,4 @@
-import { State, StateMachine } from '@lib/StateMachine.js';
+import { State, StateStack, StateMachine } from '@lib/StateMachine.js';
 
 import { getFacingDirection } from '@src/globals.js';
 import { finder } from '@src/main.js';
@@ -34,6 +34,8 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
         const fsmPersistParameters = [scene, this];
         this.fsm = new StateMachine('idle', states, fsmPersistParameters);
+
+		this.stateStack = new StateStack(this.fsm);
 
         this.addTileCollision(properties.collidableTileLayers);
 
@@ -105,20 +107,12 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     clearPathing() {
         // TODO this.anims.play('idle', true);
         this.pathNodes = [];
-
-		this.fsm.transition('idle');
     }
 
     setTargetPos(pos) {
         if (this.debug) console.log("setTargetPos", JSON.stringify(pos));
 
         this.targetPos = pos;
-        this.scene.physics.moveToObject(this, pos, this.controlVelocity);
-        this.setDirection(getFacingDirection(this, pos));
-
-		if(this.fsm.state != 'moving') {
-			this.fsm.transition('moving');
-		}
     }
 
     update() {
@@ -141,9 +135,19 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
 class CharacterMovingState extends State {
 
-	enter(scene, characterObject) {}
+	enter(scene, characterObject) {
+		characterObject.moveToNextGoal();
+	}
 
 	execute(scene, characterObject) {
+		const direction = new Phaser.Math.Vector2(characterObject.targetPos).subtract(new Phaser.Math.Vector2(characterObject.x, characterObject.y));
+
+		if(direction.lengthSq() > 0.05) { direction.normalize(); }
+
+		const velocity = new Phaser.Math.Vector2(direction).scale(characterObject.controlVelocity);
+
+		characterObject.setVelocity(velocity.x, velocity.y);
+
 		const distanceToNode = Phaser.Math.Distance.BetweenPoints(
 			characterObject,
 			characterObject.targetPos
@@ -153,6 +157,10 @@ class CharacterMovingState extends State {
 			characterObject.body.reset(characterObject.targetPos.x, characterObject.targetPos.y);
 			characterObject.shiftPathingNode();
 		}
+	}
+
+	exit(scene, characterObject) {
+		characterObject.setVelocity(0.0);
 	}
 
 }
