@@ -9,7 +9,7 @@ export default class SawbladePivot extends Trap {
 	}
 
 	constructor(scene, x, y, properties) {
-		super(scene, x, y, 'sawblade-pivot_texture', 0);
+		super(scene, x, y, 'circle', 0);
 
 		this.sawblade = new Sawblade(
 			scene,

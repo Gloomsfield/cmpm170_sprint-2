@@ -18,7 +18,7 @@ export class Initialize extends Phaser.Scene {
 		this.load.image('puppet_texture', 'puppet.png');
 
 		this.load.image('sawblade_texture', 'sawblade.png');
-        this.load.image('circle', 'circle.png');
+        this.load.image('circle', 'circle.png');  
 
 		this.load.image('dungeon_tileset', 'tileset_toadzilla_dungeon.png');
 		this.load.image('dungeon_tileset_lush', 'tileset_toadzilla_dungeon_lush.png');
