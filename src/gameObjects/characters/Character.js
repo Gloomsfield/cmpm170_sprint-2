@@ -31,6 +31,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 		}
 
 		states['moving'] = new CharacterMovingState();
+		states['null'] = new CharacterNullState();
 
         const fsmPersistParameters = [scene, this];
         this.fsm = new StateMachine('idle', states, fsmPersistParameters);
@@ -127,6 +128,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
 	die() {
 		this.destroy();
+		this.fsm.transition('null');
 	}
 
     setDirection(direction) {
@@ -166,4 +168,6 @@ class CharacterMovingState extends State {
 	}
 
 }
+
+class CharacterNullState extends State {}
 

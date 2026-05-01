@@ -77,6 +77,11 @@ export default class Dog extends Enemy {
 		barkSound.play();
 	}
 
+	die() {
+		this.aggroZone.destroy();
+		super.die();
+	}
+
 }
 
 class DogIdleState extends State {
