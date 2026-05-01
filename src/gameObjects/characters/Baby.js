@@ -38,7 +38,9 @@ export default class Baby extends Character {
 		this.stateStack.push('idle');
 		this.stateStack.push('moving');
 
-		scene.time.delayedCall(1000, () => this.stateStack.push('afraid', 999), null, this);
+		scene.collisionGroups.getOrInsert('sawblade', new Phaser.GameObjects.Group()).add(this);
+
+		//scene.time.delayedCall(1000, () => this.stateStack.push('afraid', 999), null, this);
     }
 
     initializeStates() {
@@ -58,6 +60,9 @@ export default class Baby extends Character {
 	die() {
 		// hacky way to prevent baby.die being called twice
 		this.die = () => {};
+
+		this.fsm.transition('idle');
+
 		this.scene.scene.restart();
 	}
 
