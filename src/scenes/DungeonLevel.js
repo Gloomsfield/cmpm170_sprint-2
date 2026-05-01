@@ -13,6 +13,8 @@ export class DungeonLevel extends Phaser.Scene {
 	}
 
 	create(tilemapInfo) {
+		delete this.baby;
+
 		tilemapInfo = {
 			tilemapKey: 'tutorial_tilemap',
 			tilesetKey: 'dungeon_tileset',
