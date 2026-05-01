@@ -74,8 +74,9 @@ export let Effect = new Phaser.Class({
 
 		effectDescriptor.shape.setShapeFunction(this.body);
 
-		scene.physics.add.overlap(this, scene.getAffectedGroup(effectDescriptor.name), effectDescriptor.onOverlapCallback);
+		scene.physics.add.overlap(this, scene.getCollisionGroup(effectDescriptor.name), effectDescriptor.onOverlapCallback);
 
+		if(effectDescriptor.lingerDuration < 0) { return; }
 		scene.time.delayedCall(effectDescriptor.lingerDuration, () => { this.destroy(); }, null, this);
 	}
 

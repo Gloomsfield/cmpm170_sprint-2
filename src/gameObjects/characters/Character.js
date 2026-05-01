@@ -123,6 +123,8 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         return this.scene.getPathfindTilePos(this.x, this.y, snapToGrid);
     }
 
+	handleBark() {}
+
 	die() {
 		this.destroy();
 	}

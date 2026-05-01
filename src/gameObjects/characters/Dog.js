@@ -16,7 +16,20 @@ class BarkEffectDescriptor extends EffectDescriptor {
 	}
 
 	onBarkRadiusEnter(obj) {
-		console.log(obj);
+		obj.handleBark();
+	}
+
+}
+
+class AggroZoneDescriptor extends EffectDescriptor {
+	
+	constructor(dog) {
+		super(
+			'aggroZone',
+			EffectShape.createCircle(25),
+			(_, obj) => { dog.bark(); obj.handleBark() },
+			-1
+		);
 	}
 
 }
@@ -26,7 +39,7 @@ export default class Dog extends Enemy {
     constructor(scene, x, y, properties) {
         super(scene, x, y, 'dog_texture', 0, properties);
 
-		this.bark();
+		this.aggroZone = new Effect(scene, this.x, this.y, new AggroZoneDescriptor(this));
     }
 
 	initializeStates() {
@@ -37,6 +50,17 @@ export default class Dog extends Enemy {
 	}
 
 	bark() {
+		this.aggroZone.destroy();
+
+		this.scene.time.delayedCall(
+			4000,
+			() => {
+				this.aggroZone = new Effect(this.scene, this.x, this.y, new AggroZoneDescriptor(this));
+			},
+			null,
+			this
+		);
+
 		this.fsm.transition('bark');
 
 		this.play('dog_bark_anim');

@@ -39,6 +39,7 @@ export default class Baby extends Character {
 		this.stateStack.push('moving');
 
 		scene.collisionGroups.getOrInsert('sawblade', new Phaser.GameObjects.Group()).add(this);
+		scene.collisionGroups.getOrInsert('aggroZone', new Phaser.GameObjects.Group()).add(this);
 
 		//scene.time.delayedCall(1000, () => this.stateStack.push('afraid', 999), null, this);
     }
@@ -55,6 +56,10 @@ export default class Baby extends Character {
 			seeking: new BabyIdleState.SeekingState(),
 			scared: new BabyIdleState.ScaredState(),
 		};
+	}
+
+	handleBark() {
+		this.stateStack.push('afraid', 999);
 	}
 
 	die() {
@@ -85,7 +90,7 @@ class BabyFearState extends State {
 
 	enter(scene, babyObject) {
 		scene.time.delayedCall(
-			100,
+			1000,
 			() => babyObject.stateStack.delete('afraid'),
 			null,
 			this
