@@ -33,6 +33,20 @@ export default class Sawblade extends Trap {
 			this.x = x;
 			this.y = y;
 		});
+
+		const color = 0xFF_66_00;
+		const colorOver = 0xFF_FF_00;
+		
+
+		this.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+			this.glow.color = colorOver;
+		}, this);
+
+		this.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+			this.glow.color = color;
+		}, this);
+
+        this.glow = this.postFX.addGlow(color, 3, 0, false, 0.1, 3);
 	}
 
 }
