@@ -99,17 +99,18 @@ export class DungeonLevel extends Phaser.Scene {
 	}
 
 	dispatchModule(defaultModule, spawnData) {
+		let spawnedObject;
+
 		// Check if the imported class contains a function called "staticInitialize" that is not inherited from a parent
 		if (typeof defaultModule.staticInitialize === 'function' && Object.hasOwn(defaultModule, 'staticInitialize')) {
-			return defaultModule.staticInitialize(this, spawnData.x, spawnData.y, spawnData.properties);
+			spawnedObject = defaultModule.staticInitialize(this, spawnData.x, spawnData.y, spawnData.properties);
+		} else {
+			spawnedObject = new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
 		}
-
-		const spawnedObject = new defaultModule(this, spawnData.x, spawnData.y, spawnData.properties);
 
 		if(!spawnData.properties.collidesWith) { return spawnedObject; }
 
 		for(const collisionName of spawnData.properties.collidesWith) {
-			console.log(collisionName.value);
 			this.collisionGroups.getOrInsert(collisionName.value, new Phaser.GameObjects.Group(this)).add(spawnedObject);
 		}
 

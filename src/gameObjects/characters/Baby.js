@@ -50,6 +50,8 @@ export default class Baby extends Character {
 	}
 
 	die() {
+		// hacky way to prevent baby.die being called twice
+		this.die = () => {};
 		this.scene.scene.restart();
 	}
 
