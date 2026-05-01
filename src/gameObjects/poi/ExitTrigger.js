@@ -28,6 +28,7 @@ export default class ExitTrigger {
                 if (properties.next === 'win') {
                     console.log('TODO: u winner deserve a win screen dude');
                 } else {
+					baby.fsm.transition('idle');
                     scene.scene.start('dungeonLevelScene', { tilemapKey: properties.next });
                 }
             }
