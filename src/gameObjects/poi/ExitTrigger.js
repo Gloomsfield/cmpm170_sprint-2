@@ -3,7 +3,7 @@ export default class ExitTrigger {
         // No-op, constructed in Baby.js instead
     }
 
-    static init(scene, baby, { x, y, width, height }) {
+    static init(scene, baby, { x, y, width, height, properties }) {
         // https://phaser.discourse.group/t/collision-enter-exit-event/1001/3
         const zone = scene.add.zone(x, y).setSize(width, height).setOrigin(0);
         scene.physics.world.enable(zone);
@@ -17,7 +17,7 @@ export default class ExitTrigger {
         const collisionFilter = new Set([baby, zone]);
         scene.physics.world.once('overlap', (gameObject1, gameObject2, body1, body2) => {
             if (collisionFilter.has(gameObject1) && collisionFilter.has(gameObject2)) {
-                console.log('overlapped exit');
+                console.log('overlapped exit', 'TODO transition to', properties);
             }
         });
     }
