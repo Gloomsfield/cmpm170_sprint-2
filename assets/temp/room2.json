@@ -83,7 +83,7 @@
                         {
                          "name":"maxAngle",
                          "type":"float",
-                         "value":30
+                         "value":170
                         }, 
                         {
                          "name":"sawblade",
@@ -107,8 +107,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":40,
-                 "y":88
+                 "x":48,
+                 "y":48
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -165,7 +165,7 @@
                         }],
                  "rotation":0,
                  "type":"",
-                 "visible":true,
+                 "visible":false,
                  "width":0,
                  "x":88,
                  "y":168
@@ -223,6 +223,19 @@
                  "width":0,
                  "x":88,
                  "y":168
+                }, 
+                {
+                 "height":0,
+                 "id":20,
+                 "name":"dog",
+                 "opacity":1,
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":40,
+                 "y":72
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -231,7 +244,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":20,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",

@@ -190,6 +190,15 @@
                  "point":true,
                  "properties":[
                         {
+                         "name":"collidesWith",
+                         "type":"list",
+                         "value":[
+                                {
+                                 "type":"string",
+                                 "value":"sawblade"
+                                }]
+                        }, 
+                        {
                          "name":"exit",
                          "type":"object",
                          "value":18
