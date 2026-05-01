@@ -8,7 +8,6 @@ export class MusicScene extends Phaser.Scene {
 		
 		if (!mainTheme){
 			const mainTheme = this.sound.add('main_theme', {volume: 0.5});
-			console.log("herro");
 			mainTheme.addMarker({
 				name: 'first',
 				start: 0,
