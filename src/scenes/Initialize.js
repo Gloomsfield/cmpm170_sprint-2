@@ -37,6 +37,7 @@ export class Initialize extends Phaser.Scene {
 
     create() {
         this.scene.launch('MusicScene');
+        this.scene.launch('cursorOverlayScene');
 
         this.createBabyAnims();
 
