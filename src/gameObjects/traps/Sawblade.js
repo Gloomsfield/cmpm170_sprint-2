@@ -27,7 +27,18 @@ export default class Sawblade extends Trap {
 
 			this.x = x;
 			this.y = y;
+
 		});
+
+		const ambientSawSound = this.scene.sound.add('saw_sound_ambient', {loop: true, volume: 0.2});
+
+	
+		ambientSawSound.play();
+
+	}
+
+	whirr() {
+
 	}
 
 }
