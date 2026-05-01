@@ -4,6 +4,7 @@ import { Initialize } from './scenes/Initialize.js';
 import { MainMenu } from './scenes/MainMenu.js';
 import { Credits } from './scenes/Credits.js';
 
+import { IntroCutscene } from './scenes/IntroCutscene.js'
 import { DungeonLevel } from './scenes/DungeonLevel.js'
 
 import { MusicScene } from './scenes/MusicScene.js'
@@ -30,7 +31,7 @@ const config = {
         default: 'arcade',
         // arcade: { debug: true }
     },
-    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, DungeonLevel, MusicScene ]
+    scene: [ new Initialize(urlQueryParams.get('mode')), MainMenu, Credits, IntroCutscene, DungeonLevel, MusicScene ]
 };
 
 export const game = new Phaser.Game(config);

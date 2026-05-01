@@ -15,12 +15,14 @@ export class Initialize extends Phaser.Scene {
 		this.load.image('doll_texture', 'dummy.png');
 		this.load.image('fish_texture', 'dummy.png');
 		this.load.image('moth_texture', 'dummy.png');
-		this.load.image('puppet_texture', 'dummy.png');
+		this.load.image('puppet_texture', 'puppet.png');
 
 		this.load.image('sawblade_texture', 'sawblade.png');
 
 		this.load.image('dungeon_tileset', 'tileset_toadzilla_dungeon.png');
+		this.load.image('dungeon_tileset_lush', 'tileset_toadzilla_dungeon_lush.png');
 
+		this.load.tilemapTiledJSON('intro', 'intro.json');
 		this.load.tilemapTiledJSON('tutorial_tilemap', 'room1.json');
 		this.load.tilemapTiledJSON('room2', 'room2.json');
 		this.load.tilemapTiledJSON('room3', 'room3.json');
@@ -70,6 +72,13 @@ export class Initialize extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('baby_texture', {
                 frames: [ 12, 13, 12, 14 ]
             }),
+        });
+
+		this.anims.create({
+            key: 'baby-idle',
+            frameRate: 2,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('baby_texture', { frames: [ 16, 17, 18, 19, 18, 17 ] }),
         });
 	}
 

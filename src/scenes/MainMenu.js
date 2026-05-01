@@ -27,7 +27,7 @@ export class MainMenu extends Phaser.Scene {
     }
 
     startPlay() {
-        this.scene.start('dungeonLevelScene');
+        this.scene.start('introScene');
     }
 
     startCredits() {
