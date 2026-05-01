@@ -91,6 +91,7 @@
                  "height":0,
                  "id":19,
                  "name":"sawbladePivot",
+                 "opacity":1,
                  "point":true,
                  "properties":[
                         {
@@ -114,6 +115,7 @@
                  "height":0,
                  "id":23,
                  "name":"sawbladePivot",
+                 "opacity":1,
                  "point":true,
                  "properties":[
                         {
@@ -137,6 +139,7 @@
                  "height":0,
                  "id":18,
                  "name":"sawblade",
+                 "opacity":1,
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -149,6 +152,7 @@
                  "height":0,
                  "id":22,
                  "name":"sawblade",
+                 "opacity":1,
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -156,36 +160,6 @@
                  "width":0,
                  "x":104,
                  "y":32
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "color":"#aa55ff",
-         "draworder":"index",
-         "id":6,
-         "name":"characters",
-         "objects":[
-                {
-                 "height":0,
-                 "id":17,
-                 "name":"baby",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"path",
-                         "type":"object",
-                         "value":27
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":104,
-                 "y":200
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -202,6 +176,7 @@
                  "height":0,
                  "id":27,
                  "name":"BabyRoute",
+                 "opacity":1,
                  "polyline":[
                         {
                          "x":0,
@@ -298,6 +273,60 @@
                  "width":0,
                  "x":104,
                  "y":200
+                }, 
+                {
+                 "height":16,
+                 "id":28,
+                 "name":"ExitTrigger",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"next",
+                         "type":"string",
+                         "value":"win"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":96,
+                 "y":0
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "color":"#aa55ff",
+         "draworder":"index",
+         "id":6,
+         "name":"characters",
+         "objects":[
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"baby",
+                 "opacity":1,
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"exit",
+                         "type":"object",
+                         "value":28
+                        }, 
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":27
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":104,
+                 "y":200
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -306,10 +335,10 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":28,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.11.2",
+ "tiledversion":"1.12.1",
  "tileheight":16,
  "tilesets":[
         {
