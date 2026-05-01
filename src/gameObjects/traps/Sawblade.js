@@ -12,6 +12,11 @@ export default class Sawblade extends Trap {
 		this.setInteractive();
 		scene.input.setDraggable(this);
 
+		scene.physics.add.existing(this);
+		this.body.setCircle(this.width / 2.0, 0.5, 0.5);
+
+		scene.physics.add.overlap(this, scene.getCollisionGroup('sawblade'), (_, obj) => obj.die());
+
 		this.draggedPosition = new Phaser.Math.Vector2(this.x, this.y);
 
 		this.on('drag', (pointer, x, y) => {
