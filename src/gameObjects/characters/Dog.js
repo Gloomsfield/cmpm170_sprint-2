@@ -39,6 +39,8 @@ export default class Dog extends Enemy {
     constructor(scene, x, y, properties) {
         super(scene, x, y, 'dog_texture', 0, properties);
 
+		this.stateStack.push('idle');
+
 		this.aggroZone = new Effect(scene, this.x, this.y, new AggroZoneDescriptor(this));
     }
 
@@ -76,7 +78,9 @@ export default class Dog extends Enemy {
 }
 
 class DogIdleState extends State {
-	enter(scene, dogObject) {}
+	enter(scene, dogObject) {
+		dogObject.play('doggy-idle', true);
+	}
 
 	execute(scene, dogObject) {}
 }

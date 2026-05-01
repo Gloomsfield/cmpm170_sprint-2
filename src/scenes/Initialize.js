@@ -11,13 +11,14 @@ export class Initialize extends Phaser.Scene {
 		this.load.spritesheet('baby_texture', 'baby.png', { frameWidth: 16 });
 		this.load.image('bear_texture', 'dummy.png');
 		this.load.image('clown_texture', 'dummy.png');
-		this.load.image('dog_texture', 'dummy.png');
+		this.load.spritesheet('dog_texture', 'doggy.png', { frameWidth: 20, frameHeight: 16 });
 		this.load.image('doll_texture', 'dummy.png');
 		this.load.image('fish_texture', 'dummy.png');
 		this.load.image('moth_texture', 'dummy.png');
 		this.load.image('puppet_texture', 'puppet.png');
 
 		this.load.image('sawblade_texture', 'sawblade.png');
+        this.load.image('circle', 'circle.png');  
 
 		this.load.image('dungeon_tileset', 'tileset_toadzilla_dungeon.png');
 		this.load.image('dungeon_tileset_lush', 'tileset_toadzilla_dungeon_lush.png');
@@ -45,6 +46,7 @@ export class Initialize extends Phaser.Scene {
         this.scene.launch('cursorOverlayScene');
 
         this.createBabyAnims();
+		this.createDoggyAnims();
 
         this.scene.start(this.queryMode);
     }
@@ -86,6 +88,15 @@ export class Initialize extends Phaser.Scene {
             repeat: -1,
             frames: this.anims.generateFrameNumbers('baby_texture', { frames: [ 16, 17, 18, 19, 18, 17 ] }),
         });
+	}
+
+	createDoggyAnims() {
+		this.anims.create({
+			key: 'doggy-idle',
+			frameRate: 2,
+			repeat: -1,
+			frames: this.anims.generateFrameNumbers('dog_texture', { start: 0, end: 1 }),
+		});
 	}
 
 }
