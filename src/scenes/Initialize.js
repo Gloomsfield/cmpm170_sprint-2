@@ -22,6 +22,10 @@ export class Initialize extends Phaser.Scene {
 		this.load.image('dungeon_tileset', 'tileset_toadzilla_dungeon.png');
 
 		this.load.tilemapTiledJSON('tutorial_tilemap', 'room1.json');
+		this.load.tilemapTiledJSON('room2', 'room2.json');
+		this.load.tilemapTiledJSON('room3', 'room3.json');
+		this.load.tilemapTiledJSON('room4', 'room4.json');
+		this.load.tilemapTiledJSON('room5', 'room5.json');
 
 		this.load.audio('dog_bark_sound', 'dog_bark_sound.mp3');
 
