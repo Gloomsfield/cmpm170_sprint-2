@@ -37,13 +37,24 @@ export default class Sawblade extends Trap {
 
 		const ambientSawSound = this.scene.sound.add('saw_sound_ambient', {loop: true, volume: 0.2});
 
-	
 		ambientSawSound.play();
 
 	}
 
 	whirr() {
+		const color = 0xFF_66_00;
+		const colorOver = 0xFF_FF_00;
+		
 
+		this.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+			this.glow.color = colorOver;
+		}, this);
+
+		this.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+			this.glow.color = color;
+		}, this);
+
+        this.glow = this.postFX.addGlow(color, 3, 0, false, 0.1, 3);
 	}
 
 }
