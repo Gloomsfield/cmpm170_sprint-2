@@ -21,7 +21,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    backgroundColor: '#FACADE',
+    backgroundColor: '#1E1911',
 
     useTicker: true,
     physics: {
