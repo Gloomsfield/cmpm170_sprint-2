@@ -36,6 +36,10 @@ export default class Baby extends Character {
 		};
 	}
 
+	die() {
+		this.scene.scene.restart();
+	}
+
 }
 
 class BabyIdleState extends State {
