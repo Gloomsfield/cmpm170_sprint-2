@@ -55,6 +55,11 @@ export default class Baby extends Character {
 		this.scene.scene.restart();
 	}
 
+    setDirection(direction) {
+        super.setDirection(direction);
+        this.play(`baby-walk-${direction}`, true);
+    }
+
 }
 
 class BabyIdleState extends State {

@@ -8,7 +8,7 @@ export class Initialize extends Phaser.Scene {
     preload() {
         this.load.path = './assets/temp/';
 
-		this.load.image('baby_texture', 'dummy.png');
+		this.load.spritesheet('baby_texture', 'baby.png', { frameWidth: 16 });
 		this.load.image('bear_texture', 'dummy.png');
 		this.load.image('clown_texture', 'dummy.png');
 		this.load.image('dog_texture', 'dummy.png');
@@ -35,7 +35,42 @@ export class Initialize extends Phaser.Scene {
 
     create() {
         this.scene.launch('MusicScene');
-		this.scene.start(this.queryMode);	
+
+        this.createBabyAnims();
+
+        this.scene.start(this.queryMode);
     }
+
+	createBabyAnims() {
+		this.anims.create({
+            key: 'baby-walk-down',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('baby_texture', { start: 0, end: 3 }),
+        });
+
+		this.anims.create({
+            key: 'baby-walk-right',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('baby_texture', { start: 4, end: 7 }),
+        });
+
+		this.anims.create({
+            key: 'baby-walk-left',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('baby_texture', { start: 8, end: 11 }),
+        });
+
+		this.anims.create({
+            key: 'baby-walk-up',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('baby_texture', {
+                frames: [ 12, 13, 12, 14 ]
+            }),
+        });
+	}
 
 }
