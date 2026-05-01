@@ -41,6 +41,8 @@ export default class Dog extends Enemy {
 
 		this.stateStack.push('idle');
 
+		scene.collisionGroups.getOrInsert('sawblade', new Phaser.GameObjects.Group()).add(this);
+
 		this.aggroZone = new Effect(scene, this.x, this.y, new AggroZoneDescriptor(this));
     }
 
