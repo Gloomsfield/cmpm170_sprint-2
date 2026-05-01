@@ -128,7 +128,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     }
 
 	die() {
-		console.log('die!');
+		this.destroy();
 	}
 
 }
