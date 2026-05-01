@@ -1,8 +1,21 @@
 import { Character } from "./Character.js";
+import ExitTrigger from "@src/gameObjects/poi/ExitTrigger.js";
 import { State, StateMachine } from "@lib/StateMachine.js";
 import { offsetPolylinePath } from "@src/tiledImport.js"
 
 export default class Baby extends Character {
+
+	static staticInitialize(scene, x, y, properties) {
+		const baby = new Baby(scene, x, y, properties);
+
+        if (properties.exit) {
+			ExitTrigger.init(scene, baby, properties.exit);
+		} else {
+			console.log('exit is missing from baby\'s custom properties');
+		}
+
+		return baby;
+    }
 
     constructor(scene, x, y, properties) {
         super(scene, x, y, 'baby_texture', 0, properties);
