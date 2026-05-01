@@ -13,11 +13,6 @@ export default class Baby extends Character {
 
         this.moveToNextGoal(); // TODO Add timer delay before this is called
 
-		const idleStates = this.initializeIdleSubStates();
-		const idleFsmPersistParameters = [scene, this];
-
-		this.idleFsm = new StateMachine('seeking', idleStates, idleFsmPersistParameters);
-
         if (this.scene.baby) {
             console.error('There is already an instance of baby in the scene');
         } else {
@@ -45,30 +40,8 @@ export default class Baby extends Character {
 
 class BabyIdleState extends State {
 
-	static SeekingState = class extends State {
-		enter(scene, babyObject) { console.log('entering seeking sub-state'); }
-		execute(scene, babyObject) {}
-	};
-
-	static ScaredState = class extends State {
-		enter(scene, babyObject) { console.log('entering scared sub-state'); }
-		execute(scene, babyObject) {}
-	};
-
-    enter(scene, babyObject) {
-		babyObject.idleFsm.transition('seeking');
-	}
-
-    execute(scene, babyObject) {
-		babyObject.idleFsm.step();
-	}
-
-}
-
-class BabyScaredState extends State {
-	
-	enter(scene, babyObject) {}
-	execute(scene, babyObject) {}
+    enter(scene, babyObject) {}
+    execute(scene, babyObject) {}
 
 }
 
