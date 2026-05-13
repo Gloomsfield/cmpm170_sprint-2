@@ -77,7 +77,7 @@
                         {
                          "name":"maxAngle",
                          "type":"float",
-                         "value":30
+                         "value":361
                         }, 
                         {
                          "name":"sawblade",
@@ -101,7 +101,7 @@
                         {
                          "name":"maxAngle",
                          "type":"float",
-                         "value":30
+                         "value":361
                         }, 
                         {
                          "name":"sawblade",
